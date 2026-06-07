@@ -6,10 +6,11 @@ Honcho builds long-term memory for AI agents by storing conversations and extrac
 
 ## Features
 
+- **Auto-context injection** — Honcho's user representation is automatically injected at the start of every turn via an `honcho-context` message, giving the LLM context about the user without needing to call a tool
 - **Auto-sync** — user and assistant messages are pushed to Honcho after every turn
 - **`honcho_memory`** — tool for the LLM to query Honcho's Dialectic agent (answers grounded in stored facts)
 - **`honcho_remember`** — tool for the LLM to explicitly store facts/conclusions
-- **`honcho_representation`** — tool for a fast read-only context dump (no LLM call)
+- **`honcho_representation`** — tool for querying Honcho representation about peers other than the current user
 - **`/honcho-status`** — command to inspect connection state
 - **Status bar indicator** — green when connected, red when Honcho is offline
 - **Graceful degradation** — tools return clear error messages when Honcho isn't reachable

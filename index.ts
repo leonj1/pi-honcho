@@ -249,6 +249,34 @@ export default function (pi: ExtensionAPI) {
 		client = null;
 	});
 
+	// ── Automatic context injection ───────────────────────────────────────
+
+	pi.on("before_agent_start", async (event, ctx) => {
+		const s = getState();
+		const c = getClient();
+		if (!s || !c) return;
+
+		try {
+			const result = await c.getRepresentation(s.workspaceId, s.peerId, {
+				session_id: s.sessionId,
+				max_conclusions: 25,
+			});
+
+			const rep = result.representation?.trim();
+			if (!rep || rep === "(No representation available)") return;
+
+			return {
+				message: {
+					customType: "honcho-context",
+					content: `## Honcho Memory Context\n\n${rep}`,
+					display: false,
+				},
+			};
+		} catch {
+			// Silently skip — never disrupt the user for Honcho failures
+		}
+	});
+
 	// ── Tools ──────────────────────────────────────────────────────────────
 
 	pi.registerTool({
@@ -409,8 +437,8 @@ export default function (pi: ExtensionAPI) {
 		promptSnippet:
 			"Get a read-only summary of Honcho's stored conclusions about a peer",
 		promptGuidelines: [
-			"Use honcho_representation to get a quick overview of what Honcho knows about a user before engaging.",
-			"Prefer honcho_memory (the Dialectic agent) when you have a specific question; use honcho_representation for a general context dump.",
+			"Honcho context is auto-injected at the start of each turn via an honcho-context message. Use honcho_representation only to query what Honcho knows about peers other than the current user.",
+			"Prefer honcho_memory (the Dialectic agent) when you have a specific question; the auto-injected context is a static summary.",
 		],
 		parameters: Type.Object({
 			target: Type.Optional(
