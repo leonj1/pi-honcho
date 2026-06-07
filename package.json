@@ -5,7 +5,7 @@
   "keywords": ["pi-package", "honcho", "memory", "agent"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/leonj/pi-honcho"
+    "url": "https://github.com/leonj1/pi-honcho"
   },
   "license": "MIT",
   "pi": {

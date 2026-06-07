@@ -18,7 +18,7 @@ Honcho builds long-term memory for AI agents by storing conversations and extrac
 ## Install
 
 ```bash
-pi install git:github.com/leonj/pi-honcho
+pi install git:github.com/leonj1/pi-honcho
 ```
 
 Or locally during development:
