@@ -1,0 +1,17 @@
+{
+  "name": "pi-honcho",
+  "version": "0.1.0",
+  "description": "Pi extension for Honcho — an agent memory layer. Auto-syncs conversations and provides memory tools.",
+  "keywords": ["pi-package", "honcho", "memory", "agent"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leonj/pi-honcho"
+  },
+  "license": "MIT",
+  "pi": {
+    "extensions": ["./index.ts"]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}
